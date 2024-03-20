@@ -2641,6 +2641,7 @@ namespace MissionPlanner
                                 try
                                 {
                                     if (oldmode != mode && Speech != null && Speech.speechEnable &&
+                                        parent?.parent?.speechenabled == true &&
                                         parent?.parent?.MAV?.cs == this &&
                                         Settings.Instance.GetBoolean("speechmodeenabled") &&
                                         (armed || !Settings.Instance.GetBoolean("speech_armed_only")))
@@ -3138,6 +3139,7 @@ namespace MissionPlanner
                             try
                             {
                                 if (oldwp != wpno && Speech != null && Speech.speechEnable && parent != null &&
+                                    parent.parent.speechenabled &&
                                     parent.parent.MAV.cs == this &&
                                     Settings.Instance.GetBoolean("speechwaypointenabled") &&
                                     (armed || !Settings.Instance.GetBoolean("speech_armed_only")))

@@ -398,6 +398,11 @@ namespace MissionPlanner
             {
                 if (_comPort == value)
                     return;
+
+                // Disable speech on old port and enable it on the new one
+                if (_comPort != null) _comPort.speechenabled = false;
+                if (value != null) value.speechenabled = true;
+        
                 _comPort = value;
                 if (instance == null)
                     return;
