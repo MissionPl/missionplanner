@@ -1,4 +1,4 @@
-﻿namespace MissionPlanner.GCSViews.ConfigurationView
+namespace MissionPlanner.GCSViews.ConfigurationView
 {
     partial class ConfigPlanner
     {
@@ -108,6 +108,9 @@
             this.chk_slowMachine = new System.Windows.Forms.CheckBox();
             this.CHK_speechArmedOnly = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.CMB_mapCache = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.BUT_mapCacheDir = new MissionPlanner.Controls.MyButton();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_gcsid)).BeginInit();
             this.SuspendLayout();
@@ -750,6 +753,26 @@
             resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
             // 
+            // CMB_mapCache
+            // 
+            this.CMB_mapCache.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CMB_mapCache.FormattingEnabled = true;
+            resources.ApplyResources(this.CMB_mapCache, "CMB_mapCache");
+            this.CMB_mapCache.Name = "CMB_mapCache";
+            this.CMB_mapCache.SelectedIndexChanged += new System.EventHandler(this.CMB_mapCache_SelectedIndexChanged);
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // BUT_mapCacheDir
+            // 
+            resources.ApplyResources(this.BUT_mapCacheDir, "BUT_mapCacheDir");
+            this.BUT_mapCacheDir.Name = "BUT_mapCacheDir";
+            this.BUT_mapCacheDir.UseVisualStyleBackColor = true;
+            this.BUT_mapCacheDir.Click += new System.EventHandler(this.BUT_mapCacheDir_Click);
+            // 
             // ConfigPlanner
             // 
             resources.ApplyResources(this, "$this");
@@ -832,6 +855,9 @@
             this.Controls.Add(this.BUT_Joystick);
             this.Controls.Add(this.BUT_videostop);
             this.Controls.Add(this.BUT_videostart);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.CMB_mapCache);
+            this.Controls.Add(this.BUT_mapCacheDir);
             this.Name = "ConfigPlanner";
             this.Load += new System.EventHandler(this.ConfigPlanner_Load);
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).EndInit();
@@ -922,5 +948,8 @@
         private System.Windows.Forms.CheckBox chk_slowMachine;
         private System.Windows.Forms.CheckBox CHK_speechArmedOnly;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        public System.Windows.Forms.ComboBox CMB_mapCache;
+        private Controls.MyButton BUT_mapCacheDir;
     }
 }
