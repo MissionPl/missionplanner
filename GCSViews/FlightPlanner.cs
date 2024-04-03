@@ -1,4 +1,4 @@
-﻿using DotSpatial.Data;
+using DotSpatial.Data;
 using DotSpatial.Projections;
 using GeoUtility.GeoSystem;
 using GeoUtility.GeoSystem.Base;
@@ -5016,20 +5016,45 @@ namespace MissionPlanner.GCSViews
 
                 maxzoom = Math.Min(maxzoom, MainMap.MaxZoom);
 
-                for (int i = 1; i <= maxzoom; i++)
+                string minzoomstring = "1";
+                if (InputBox.Show("min zoom", "Enter the min zoom to prefetch to.", ref minzoomstring) !=
+                    DialogResult.OK)
+                    return;
+
+                int minzoom = 20;
+                if (!int.TryParse(minzoomstring, out minzoom))
                 {
-                    TilePrefetcher obj = new TilePrefetcher();
-                    ThemeManager.ApplyThemeTo(obj);
-                    obj.ShowCompleteMessage = false;
-                    obj.Start(area, i, MainMap.MapProvider, 0, 0);
+                    CustomMessageBox.Show(Strings.InvalidNumberEntered, Strings.ERROR);
+                    return;
+                }
+                minzoom = Math.Max(minzoom, MainMap.MinZoom);
 
-                    if (obj.UserAborted)
+                if (minzoom > maxzoom)
+                {
+                    CustomMessageBox.Show(Strings.InvalidNumberEntered, Strings.ERROR);
+                    return;
+                }
+
+                for (int i = minzoom; i <= maxzoom; i++)
+                {
+                    try
                     {
-                        obj.Dispose();
-                        break;
-                    }
+                        TilePrefetcher obj = new TilePrefetcher();
+                        ThemeManager.ApplyThemeTo(obj);
+                        obj.ShowCompleteMessage = false;
+                        obj.Start(area, i, MainMap.MapProvider, 0, 0);
 
-                    obj.Dispose();
+                        if (obj.UserAborted)
+                        {
+                            obj.Dispose();
+                            break;
+                        }
+
+                        obj.Dispose();
+                    }
+                    catch
+                    {
+                    }
                 }
             }
             else
