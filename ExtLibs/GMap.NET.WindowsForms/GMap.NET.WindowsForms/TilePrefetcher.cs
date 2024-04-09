@@ -9,9 +9,7 @@ namespace GMap.NET
    using GMap.NET.MapProviders;
    using System.Threading;
    using GMap.NET.WindowsForms;
-   using GMap.NET.WindowsForms.Markers;
    using System.Drawing;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// form helping to prefetch tiles on local db
@@ -235,7 +233,6 @@ namespace GMap.NET
 
          int countOk = 0;
          int retryCount = 0;
-            int count = 0;
 
          if(Shuffle)
          {
@@ -247,10 +244,10 @@ namespace GMap.NET
             CachedTiles.Clear();
          }
 
-        Parallel.For(0, all, (i, state)=>
+        for (int i = 0; i < all; i++)
         {
             if(worker.CancellationPending)
-                state.Break();
+                break;
 
             GPoint p = list[i];
             {
@@ -272,7 +269,7 @@ namespace GMap.NET
                     {
                         i--;
                         System.Threading.Thread.Sleep(1111);
-                        return;
+                            continue;
                     }
                     else
                     {
@@ -280,14 +277,13 @@ namespace GMap.NET
                     }
                 }
             }
-            count++;
-            worker.ReportProgress((int)((count + 1) * 100 / all), count + 1);
+                worker.ReportProgress((int)((i + 1) * 100 / all), i + 1);
 
             if (sleep > 0)
             {
                 System.Threading.Thread.Sleep(sleep);
             }
-        });
+        }
 
          e.Result = countOk;
 
