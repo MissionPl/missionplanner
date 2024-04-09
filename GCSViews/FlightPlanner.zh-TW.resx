@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -619,9 +619,6 @@
   </data>
   <data name="TRK_zoom.ToolTip" xml:space="preserve">
     <value />
-  </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 13</value>
   </data>
   <data name="label11.Text" xml:space="preserve">
     <value>縮放</value>
