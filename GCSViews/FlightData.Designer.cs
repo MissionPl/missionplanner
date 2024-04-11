@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 
 namespace MissionPlanner.GCSViews
 {
@@ -216,7 +216,7 @@ namespace MissionPlanner.GCSViews
             this.panel1 = new System.Windows.Forms.Panel();
             this.coords1 = new MissionPlanner.Controls.Coords();
             this.Zoomlevel = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new MissionPlanner.Controls.MyLabel();
+            this.label1 = new System.Windows.Forms.Label();
             this.CHK_autopan = new System.Windows.Forms.CheckBox();
             this.CB_tuning = new System.Windows.Forms.CheckBox();
             this.ZedGraphTimer = new System.Windows.Forms.Timer(this.components);
@@ -277,9 +277,9 @@ namespace MissionPlanner.GCSViews
             this.splitContainer1.SuspendLayout();
             this.contextMenuStripMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).BeginInit();
             this.SuspendLayout();
             // 
@@ -2353,8 +2353,11 @@ namespace MissionPlanner.GCSViews
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.ContextMenuStrip = this.contextMenuStripMap;
+            this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.but_disablejoystick);
+            this.splitContainer1.Panel2.Controls.Add(this.Zoomlevel);
             this.splitContainer1.Panel2.Controls.Add(this.distanceBar1);
+            this.splitContainer1.Panel2.Controls.Add(this.TRK_zoom);
             this.splitContainer1.Panel2.Controls.Add(this.windDir1);
             this.splitContainer1.Panel2.Controls.Add(this.label6);
             this.splitContainer1.Panel2.Controls.Add(this.label5);
@@ -2363,7 +2366,6 @@ namespace MissionPlanner.GCSViews
             this.splitContainer1.Panel2.Controls.Add(this.lbl_hdop);
             this.splitContainer1.Panel2.Controls.Add(this.lbl_sats);
             this.splitContainer1.Panel2.Controls.Add(this.gMapControl1);
-            this.splitContainer1.Panel2.Controls.Add(this.TRK_zoom);
             // 
             // zg1
             // 
@@ -2624,7 +2626,7 @@ namespace MissionPlanner.GCSViews
             this.TRK_zoom.Name = "TRK_zoom";
             this.TRK_zoom.SmallChange = 1F;
             this.TRK_zoom.TickFrequency = 1F;
-            this.TRK_zoom.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.TRK_zoom.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.TRK_zoom.Value = 1F;
             this.TRK_zoom.Scroll += new System.EventHandler(this.TRK_zoom_Scroll);
             // 
@@ -2632,8 +2634,6 @@ namespace MissionPlanner.GCSViews
             // 
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.coords1);
-            this.panel1.Controls.Add(this.Zoomlevel);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.CHK_autopan);
             this.panel1.Controls.Add(this.CB_tuning);
             this.panel1.Name = "panel1";
@@ -2684,7 +2684,6 @@ namespace MissionPlanner.GCSViews
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.resize = false;
             // 
             // CHK_autopan
             // 
@@ -2808,10 +2807,10 @@ namespace MissionPlanner.GCSViews
             this.splitContainer1.ResumeLayout(false);
             this.contextMenuStripMap.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).EndInit();
             this.ResumeLayout(false);
 
@@ -2841,7 +2840,7 @@ namespace MissionPlanner.GCSViews
         private System.Windows.Forms.TableLayoutPanel tableMap;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.NumericUpDown Zoomlevel;
-        private Controls.MyLabel label1;
+        private Label label1;
         private System.Windows.Forms.CheckBox CHK_autopan;
         public Controls.myGMAP gMapControl1;
         private ZedGraph.ZedGraphControl zg1;
