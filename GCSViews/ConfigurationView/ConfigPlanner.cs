@@ -1,9 +1,11 @@
 ﻿using DirectShowLib;
 using MissionPlanner.Controls;
 using MissionPlanner.Joystick;
+using MissionPlanner.Maps;
 using MissionPlanner.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -220,6 +222,14 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             {
             }
 
+            CMB_mapCache.DataSource = Enum.GetNames(typeof(GMap.NET.AccessMode));
+            try
+            {
+                CMB_mapCache.SelectedIndex = CMB_mapCache.Items.IndexOf(Settings.Instance["mapCache"] ?? GMap.NET.GMaps.Instance.Mode.ToString());
+            }
+            catch
+            {
+            }
 
             txt_log_dir.Text = Settings.Instance.LogDir;
 
@@ -1025,6 +1035,39 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             MainV2.speech_armed_only = CHK_speechArmedOnly.Checked;
             Settings.Instance["speech_armed_only"] = CHK_speechArmedOnly.Checked.ToString();
+        }
+
+        private void CMB_mapCache_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           if (startup)
+              return;
+           Settings.Instance["mapCache"] = CMB_mapCache.Text;
+           GMap.NET.GMaps.Instance.Mode = (GMap.NET.AccessMode)Enum.Parse(typeof(GMap.NET.AccessMode), Settings.Instance["mapCache"].ToString());
+        }
+
+        private void BUT_mapCacheDir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string folderPath = MyImageCache.Instance.CacheLocation;
+                if (Directory.Exists(folderPath))
+                {
+                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    {
+                        Arguments = folderPath,
+                        FileName = "explorer.exe"
+                    };
+
+                    Process.Start(startInfo);
+                }
+                else
+                {
+                    MessageBox.Show(string.Format("{0} Directory does not exist!", folderPath));
+                }
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

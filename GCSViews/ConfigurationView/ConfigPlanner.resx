@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -244,7 +244,7 @@
     <value>NOTE: Set the low level of SEVERITY to speak</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>949, 591</value>
+    <value>949, 622</value>
   </data>
   <data name="CMB_raterc.Items14" xml:space="preserve">
     <value>50</value>
@@ -826,7 +826,7 @@
     <value>CMB_osdcolor</value>
   </data>
   <data name="chk_temp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>340, 571</value>
+    <value>340, 601</value>
   </data>
   <data name="CHK_enablespeech.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1453,7 +1453,7 @@
     <value>NoControl</value>
   </data>
   <data name="CHK_mavdebug.Location" type="System.Drawing.Point, System.Drawing">
-    <value>106, 571</value>
+    <value>106, 601</value>
   </data>
   <data name="CMB_rateposition.Items11" xml:space="preserve">
     <value>10</value>
@@ -2542,10 +2542,85 @@
   <data name="CMB_rateattitude.Items1" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="CMB_mapCache.Location" type="System.Drawing.Point, System.Drawing">
+    <value>107, 573</value>
+  </data>
+  <data name="CMB_mapCache.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 21</value>
+  </data>
+  <data name="CMB_mapCache.TabIndex" type="System.Int32, mscorlib">
+    <value>127</value>
+  </data>
+  <data name="&gt;&gt;CMB_mapCache.Name" xml:space="preserve">
+    <value>CMB_mapCache</value>
+  </data>
+  <data name="&gt;&gt;CMB_mapCache.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CMB_mapCache.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;CMB_mapCache.ZOrder" xml:space="preserve">
+    <value>80</value>
+  </data>
+  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 576</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 13</value>
+  </data>
+  <data name="label9.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>Map Access Mode</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>79</value>
+  </data>
+  <data name="BUT_mapCacheDir.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_mapCacheDir.Location" type="System.Drawing.Point, System.Drawing">
+    <value>251, 573</value>
+  </data>
+  <data name="BUT_mapCacheDir.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 21</value>
+  </data>
+  <data name="BUT_mapCacheDir.TabIndex" type="System.Int32, mscorlib">
+    <value>95</value>
+  </data>
+  <data name="BUT_mapCacheDir.Text" xml:space="preserve">
+    <value>Open Map Cache</value>
+  </data>
+  <data name="&gt;&gt;BUT_mapCacheDir.Name" xml:space="preserve">
+    <value>BUT_mapCacheDir</value>
+  </data>
+  <data name="&gt;&gt;BUT_mapCacheDir.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_mapCacheDir.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BUT_mapCacheDir.ZOrder" xml:space="preserve">
+    <value>81</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>ko-KR</value>
   </metadata>
 </root>
