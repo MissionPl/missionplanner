@@ -1,4 +1,4 @@
-﻿
+
 namespace GMap.NET
 {
    using System.Collections.Generic;
@@ -9,14 +9,13 @@ namespace GMap.NET
    using GMap.NET.MapProviders;
    using System.Threading;
    using GMap.NET.WindowsForms;
-   using GMap.NET.WindowsForms.Markers;
    using System.Drawing;
-    
-   /// <summary>
-   /// form helping to prefetch tiles on local db
-   /// </summary>
-   public partial class TilePrefetcher : Form
-   {
+
+    /// <summary>
+    /// form helping to prefetch tiles on local db
+    /// </summary>
+    public partial class TilePrefetcher : Form
+    {
       BackgroundWorker worker = new BackgroundWorker();
       List<GPoint> list;
       int zoom;
@@ -185,16 +184,22 @@ namespace GMap.NET
          foreach(var pr in provider.Overlays)
          {
             Exception ex;
-            PureImage img;
+            PureImage img = null;
 
             // tile number inversion(BottomLeft -> TopLeft)
             if(pr.InvertedAxisY)
             {
-               img = GMaps.Instance.GetImageFrom(pr, new GPoint(p.X, maxOfTiles.Height - p.Y), zoom, out ex);
+               if (GMaps.Instance.CheckImageExist(pr, new GPoint(p.X, maxOfTiles.Height - p.Y), zoom, out ex))
+                  return true;
+               else
+                  img = GMaps.Instance.GetImageFrom(pr, new GPoint(p.X, maxOfTiles.Height - p.Y), zoom, out ex);
             }
             else // ok
             {
-               img = GMaps.Instance.GetImageFrom(pr, p, zoom, out ex);
+               if (GMaps.Instance.CheckImageExist(pr, p, zoom, out ex))
+                  return true;
+               else
+                  img = GMaps.Instance.GetImageFrom(pr, p, zoom, out ex);
             }
 
             if(img != null)
@@ -239,47 +244,46 @@ namespace GMap.NET
             CachedTiles.Clear();
          }
 
-         for(int i = 0; i < all; i++)
-         {
+        for (int i = 0; i < all; i++)
+        {
             if(worker.CancellationPending)
-               break;
+                break;
 
             GPoint p = list[i];
             {
-               if(CacheTiles(zoom, p))
-               {
-                   if (Overlay != null)
-                   {
-                       lock (this)
-                       {
-                           CachedTiles.Enqueue(p);
-                       }
-                   }
-                  countOk++;
-                  retryCount = 0;
-               }
-               else
-               {
-                  if(++retryCount <= retry) // retry only one
-                  {
-                     i--;
-                     System.Threading.Thread.Sleep(1111);
-                     continue;
-                  }
-                  else
-                  {
-                     retryCount = 0;
-                  }
-               }
+                if(CacheTiles(zoom, p))
+                {
+                    if (Overlay != null)
+                    {
+                        lock (this)
+                        {
+                            CachedTiles.Enqueue(p);
+                        }
+                    }
+                    countOk++;
+                    retryCount = 0;
+                }
+                else
+                {
+                    if(++retryCount <= retry) // retry only one
+                    {
+                        i--;
+                        System.Threading.Thread.Sleep(1111);
+                            continue;
+                    }
+                    else
+                    {
+                        retryCount = 0;
+                    }
+                }
             }
-
-            worker.ReportProgress((int)((i + 1) * 100 / all), i + 1);
+                worker.ReportProgress((int)((i + 1) * 100 / all), i + 1);
 
             if (sleep > 0)
             {
                 System.Threading.Thread.Sleep(sleep);
             }
-         }
+        }
 
          e.Result = countOk;
 
@@ -295,34 +299,41 @@ namespace GMap.NET
 
       void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
       {
-         this.label1.Text = "Fetching tile at zoom (" + zoom + "): " + ((int)e.UserState).ToString() + " of " + all + ", complete: " + e.ProgressPercentage.ToString() + "%";
-         this.progressBarDownload.Value = e.ProgressPercentage;
+        try
+        {
+            this.label1.Text = "Fetching tile at zoom (" + zoom + "): " + ((int)e.UserState).ToString() + " of " + all + ", complete: " + e.ProgressPercentage.ToString() + "%";
+            int percent = Math.Max(0, Math.Min(100, e.ProgressPercentage));
+            this.progressBarDownload.Value = percent;
 
-         if (Overlay != null)
-         {
-             GPoint? l = null;
+            if (Overlay != null)
+            {
+                GPoint? l = null;
 
-             lock (this)
-             {
-                 if (CachedTiles.Count > 0)
-                 {
-                     l = CachedTiles.Dequeue();
-                 }
-             }
+                lock (this)
+                {
+                    if (CachedTiles.Count > 0)
+                    {
+                        l = CachedTiles.Dequeue();
+                    }
+                }
 
-             if (l.HasValue)
-             {
-                 var px = Overlay.Control.MapProvider.Projection.FromTileXYToPixel(l.Value);
-                 var p = Overlay.Control.MapProvider.Projection.FromPixelToLatLng(px, zoom);
+                if (l.HasValue)
+                {
+                    var px = Overlay.Control.MapProvider.Projection.FromTileXYToPixel(l.Value);
+                    var p = Overlay.Control.MapProvider.Projection.FromPixelToLatLng(px, zoom);
 
-                 var r1 = Overlay.Control.MapProvider.Projection.GetGroundResolution(zoom, p.Lat);
-                 var r2 = Overlay.Control.MapProvider.Projection.GetGroundResolution((int)Overlay.Control.Zoom, p.Lat);
-                 var sizeDiff = r2 / r1;
+                    var r1 = Overlay.Control.MapProvider.Projection.GetGroundResolution(zoom, p.Lat);
+                    var r2 = Overlay.Control.MapProvider.Projection.GetGroundResolution((int)Overlay.Control.Zoom, p.Lat);
+                    var sizeDiff = r2 / r1;
 
-                 GMapMarkerTile m = new GMapMarkerTile(p, (int)(Overlay.Control.MapProvider.Projection.TileSize.Width / sizeDiff));
-                 Overlay.Markers.Add(m);
-             }
-         }
+                    GMapMarkerTile m = new GMapMarkerTile(p, (int)(Overlay.Control.MapProvider.Projection.TileSize.Width / sizeDiff));
+                    Overlay.Markers.Add(m);
+                }
+            }
+        }
+        catch (Exception)
+        {
+        }
       }
 
       private void Prefetch_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
